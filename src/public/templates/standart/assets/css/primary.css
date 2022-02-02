@@ -1,0 +1,60 @@
+@import url("bootstrap.min.css");
+@import url("style.css");
+@import url("toastr.css");
+@import url("cards.css");
+@import url("font-awesome.min.css");
+
+tr {
+  white-space: nowrap;
+}
+
+@media (max-width: 1575.98px) {
+  .table-responsive-sm {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  .dropdown-item:focus {
+    background:#fff;
+    color:#000;
+  }
+
+  .dropdown-item:hover {
+    background:#edebeb;
+    color:#000;
+  }
+}
+
+.register {
+  margin-top: 6px;
+}
+
+.nav-link.palka {
+  display: inline-block;
+}
+
+.dropdown-menu {
+  border:none;
+}
+
+.nav-link,
+.dropdown-item {
+  cursor: pointer;
+}
+
+.media h5 {
+  display: contents;
+}
+
+.input-group.wallet button {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.input-group.wallet input {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
