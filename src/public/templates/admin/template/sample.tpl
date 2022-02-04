@@ -8,7 +8,7 @@
     <title>{title}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,800&display=swap" rel="stylesheet">
-    <link href="{assets}plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{assets}plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="{assets}plugins/font-awesome/css/all.min.css" rel="stylesheet">
     <link href="{assets}plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
 
@@ -47,15 +47,15 @@
       </div>
     </div>
             
-    <script src="{assets}plugins/jquery/jquery-3.4.1.min.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="{assets}plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="{assets}plugins/jquery/jquery-3.4.1.min.js?v={cache}"></script>
+    <script src="{assets}js/popper.js?v={cache}"></script>
+    <script src="{assets}plugins/bootstrap/js/bootstrap.js?v={cache}"></script>
+    <script src="{assets}js/feather.js?v={cache}"></script>
     <script src="https://kit.fontawesome.com/4e87f26727.js" crossorigin="anonymous"></script>
-    <script src="{assets}plugins/perfectscroll/perfect-scrollbar.min.js"></script>
-    <script src="{assets}js/main.min.js"></script>
-    <script src="{sitehost}application/performers/functions.js?v={cache}"></script>
-    <script src="{sitehost}application/performers/admin.js?v={cache}"></script>
+    <script src="{assets}plugins/perfectscroll/perfect-scrollbar.min.js?v={cache}"></script>
+    <script src="{assets}js/main.min.js?v={cache}"></script>
+    <script src="{sitehost}application/performers/compressed/engine.min.js?v={cache}"></script>
+    <script src="{sitehost}application/performers/compressed/acp.min.js?v={cache}"></script>
     <script src="{assets}js/primary.js?v={cache}"></script>
   </body>
 </html>

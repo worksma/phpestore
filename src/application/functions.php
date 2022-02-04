@@ -13,7 +13,7 @@
 		}
 		catch(PDOException $e) {
 			exit('Error: ' . $e->getMessage());
-		}
+			}
 	}
 
 	function pdo() {
@@ -144,4 +144,14 @@
 		endif;
 
 		return false;
+	}
+	
+	function extFile($file) {
+		$name = pathinfo($file, PATHINFO_FILENAME);
+		$ext = pathinfo($file, PATHINFO_EXTENSION);
+		
+		return [
+			'name' => $name,
+			'ext' => $ext
+		];
 	}

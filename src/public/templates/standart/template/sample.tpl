@@ -6,23 +6,21 @@
 		<title>{title}</title>
 
 		<meta property="og:image" content="{assets}img/logoog.png">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
+		<meta name="description" content="{description}">
+		<meta name="keywords" content="{keywords}">
 
 		<link href="{assets}img/code.svg" rel="icon" type="image/png">
 		<link rel="stylesheet" href="{assets}css/primary.css?v={cache}">
 		<link rel="stylesheet" href="{sitehost}public/addons/toasty/toasty.css?v={cache}">
 
 		<script src="{assets}js/jquery-3.2.1.slim.min.js?v={cache}"></script>
-		<script src="{assets}js/popper.min.js?v={cache}"></script>
-		<script src="//ulogin.ru/js/ulogin.js?v={cache}"></script>
-		<script src="{assets}js/primary.js?v={cache}"></script>
-
 		<script src="{assets}js/jquery-latest.min.js?v={cache}"></script>
+		<script src="{assets}js/popper.min.js?v={cache}"></script>
+		<script src="{assets}js/primary.js?v={cache}"></script>
 		<script src="{assets}js/bootstrap.min.js?v={cache}"></script>
 
-		<script src="{sitehost}application/performers/functions.js?v={cache}"></script>
-		<script src="{sitehost}application/performers/main.js?v={cache}"></script>
+		<script src="{sitehost}application/performers/compressed/engine.min.js?v={cache}"></script>
+		<script src="{sitehost}application/performers/compressed/main.min.js?v={cache}"></script>
 	</head>
 
 	<body>
@@ -48,15 +46,11 @@
 					<div class="row col-sm-12">
 						<div class="col-sm-5 foo-left-box">
 							<a class="navbar-brand" href="#">
-								<img src="{assets}img/logo.png" width="30" height="30" class="footer-cat -inline-block align-top" alt="PHP eStore">
 								PHP eStore
 							</a>
 
 							<div class="nav-logo">
 								<span class="footer-ava-text">&copy; 2021, Торговая площадка WORKSMA.</span> Все права защищены.<br>
-								<a href="https://www.free-kassa.ru/">
-									<img src="{assets}img/fk_pay.png">
-								</a>
 							</div>
 						</div>
 					</div>
@@ -66,6 +60,5 @@
 
 		<script src="https://kit.fontawesome.com/4e87f26727.js" crossorigin="anonymous"></script>
 		<script src="{assets}js/script.js?v={cache}"></script>
-		<script src="{sitehost}public/addons/toasty/toasty.js?v={cache}"></script>
 	</body>
 </html>

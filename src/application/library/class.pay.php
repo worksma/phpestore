@@ -8,14 +8,15 @@
 			$kassa = $this->conf($code);
 
 			switch($code):
-				case "free-kassa":
-					$hash = $kassa->password1 . ":" . $price . ":" . $kassa->password2 . ":" . $_SESSION['id'];
+				case "freekassa":
+					$hash = $kassa->password1 . ":" . $price . ":" . $kassa->password2 . ":RUB:" . $_SESSION['id'];
 					$hash = md5($hash);
 
-					$url = "https://www.free-kassa.ru/merchant/cash.php";
+					$url = "https://pay.freekassa.ru";
 					$url .= "?m=" . $kassa->password1;
 					$url .= "&oa=" . $price;
 					$url .= "&o=" . $_SESSION['id'];
+					$url .= "&currency=RUB";
 					$url .= "&s=" . $hash;
 				break;
 

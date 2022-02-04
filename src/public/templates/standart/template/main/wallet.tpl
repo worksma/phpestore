@@ -32,11 +32,11 @@
 					</div>
 					<?endif;?>
 
-					<?if($pay->is_enable('free-kassa')):?>
+					<?if($pay->is_enable('freekassa')):?>
 					<div class="input-group wallet mb-4">
 						<img src="{assets}img/wallet/free-kassa.png" class="w-100 mb-2">
-						<button class="btn btn-primary" type="button" onclick="kassa_create('free-kassa', $('#free-kassa').val());">Пополнить</button>
-						<input class="form-control" placeholder="Сумма" id="free-kassa">
+						<button class="btn btn-primary" type="button" onclick="kassa_create('freekassa', $('#freekassa').val());">Пополнить</button>
+						<input class="form-control" placeholder="Сумма" id="freekassa">
 					</div>
 					<?endif;?>
 				</div>

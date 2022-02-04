@@ -66,6 +66,7 @@
 							unlink("$folder/import.sql");
 						}
 						catch (PDOException $e) {
+							unlink("$folder/import.sql");
 							return false;
 						}
 					endif;

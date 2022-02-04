@@ -179,7 +179,7 @@
 		$system = clean($system);
 
 		switch($system):
-			case "free-kassa":
+			case "freekassa":
 				if(empty($_POST['MERCHANT_ID']) || empty($_POST['MERCHANT_ORDER_ID'])):
 					exit("Error: [bad data]");
 				endif;

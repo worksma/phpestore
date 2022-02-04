@@ -1,8 +1,10 @@
 <?PHP
 	@session_start();
 	$database = (object)include(__DIR__ . '/configs/database.php');
+	
+	require_once(__DIR__ . "/configs/definition.php");
 	require_once(__DIR__ . '/functions.php');
-
+	
 	spl_autoload_register(function() {
 		$folders = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/library/'));
 

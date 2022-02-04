@@ -28,7 +28,7 @@
 
           <div class="col-lg-6">
             <?
-              $payconf = Admin::payconf('free-kassa');
+              $payconf = Admin::payconf('freekassa');
             ?>
             <h5><?=$payconf->name;?></h5>
 

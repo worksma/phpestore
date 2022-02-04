@@ -101,6 +101,7 @@
               <input id="apps_vk_service" type="text" class="form-control" placeholder="Сервисный ключ доступа" value="{apps_vk_service}">
             </div>
 
+			<button type="submit" class="btn btn-info w-100 mb-2" onclick="update_cache();">Сбросить кэш</button>
             <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_reviews();">Очистить отзывы</button>
             <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_pays();">Очистить логи пополнений</button>
           </div>

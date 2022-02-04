@@ -21,12 +21,24 @@
 			'message'		=> 'Недостаточно прав'
 		]);
 	endif;
-
+	
+	if(isset($_POST['update_cache'])):
+		$id = conf()->cache + 1;
+		
+		pdo()->exec("UPDATE `configs` SET `cache`='$id' WHERE 1");
+		
+		result([
+			'alert'			=> 'success',
+			'message'		=> 'Индекс кэширования обновлён'
+		]);
+	endif;
+	
 	if(isset($_POST['truncate_reviews'])):
 		pdo()->exec("TRUNCATE `reviews`;");
 
 		result([
-			'alert'			=> 'success'
+			'alert'			=> 'success',
+			'message'		=> 'Отзывы почищены'
 		]);
 	endif;
 
@@ -34,7 +46,8 @@
 		pdo()->exec("TRUNCATE `logs__pays`;");
 
 		result([
-			'alert'			=> 'success'
+			'alert'			=> 'success',
+			'message'		=> 'Покупки почищены'
 		]);
 	endif;
 
@@ -67,19 +80,19 @@
 			break;
 
 			case "fk_enable":
-				pdo()->exec("UPDATE `configs__kassa` SET `enable`='$value' WHERE `code_name`='freekassa' LIMIT 1");
+				pdo()->exec("UPDATE `configs__kassa` SET `enable`='$value' WHERE `code_name`='free-kassa' LIMIT 1");
 			break;
 
 			case "fk_id":
-				pdo()->exec("UPDATE `configs__kassa` SET `password1`='$value' WHERE `code_name`='freekassa' LIMIT 1");
+				pdo()->exec("UPDATE `configs__kassa` SET `password1`='$value' WHERE `code_name`='free-kassa' LIMIT 1");
 			break;
 
 			case "fk_secret1":
-				pdo()->exec("UPDATE `configs__kassa` SET `password2`='$value' WHERE `code_name`='freekassa' LIMIT 1");
+				pdo()->exec("UPDATE `configs__kassa` SET `password2`='$value' WHERE `code_name`='free-kassa' LIMIT 1");
 			break;
 
 			case "fk_secret2":
-				pdo()->exec("UPDATE `configs__kassa` SET `password3`='$value' WHERE `code_name`='freekassa' LIMIT 1");
+				pdo()->exec("UPDATE `configs__kassa` SET `password3`='$value' WHERE `code_name`='free-kassa' LIMIT 1");
 			break;
 
 			case "apps_vk_id":
@@ -96,7 +109,8 @@
 		endswitch;
 
 		result([
-			'alert'			=> 'success'
+			'alert'			=> 'success',
+			'message'		=> 'Данные сохранены'
 		]);
 	endif;
 
@@ -115,7 +129,8 @@
 		endswitch;
 
 		result([
-			'alert'			=> 'success'
+			'alert'			=> 'success',
+			'message'		=> 'Сохранено'
 		]);
 	endif;
 
@@ -194,7 +209,8 @@
 		endswitch;
 
 		result([
-			'alert'			=> 'success'
+			'alert'			=> 'success',
+			'message'		=> 'Сохранено'
 		]);
 	endif;
 
@@ -221,6 +237,7 @@
 		endif;
 
 		result([
-			'alert'		=> 'success'
+			'alert'		=> 'success',
+			'message'	=> 'Сохранено'
 		]);
 	endif;

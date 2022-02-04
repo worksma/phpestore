@@ -77,7 +77,11 @@
 		}
 
 		public function end() {
-			eval("?>" . $this->autocorrect($this->temp) . "<?");
+			$file = tmpFile();
+			fwrite($file, $this->autocorrect($this->temp));
+			fseek($file, 0);
+			require_once(stream_get_meta_data($file)['uri']);
+			fclose($file);
 		}
 
 		/*

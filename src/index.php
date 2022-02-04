@@ -1,2 +1,2 @@
 <?PHP
-	require("application/engine.php");
+	require(__DIR__ . "/application/engine.php");
