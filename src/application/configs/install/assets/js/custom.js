@@ -4,7 +4,7 @@ $(function(){
 		var form_data = new FormData(this);
 		form_data.append("check_mysql", "1");
 		
-		send_post(url("application/configs/install/initiator.php"), form_data, function(result) {
+		send_post("/application/configs/install/initiator.php", form_data, function(result) {
 			if(result.alert == 'success') {
 				$("#b_install").removeAttr("disabled");
 			}
@@ -22,7 +22,7 @@ $(function(){
 		form_data.append("username", $("#username").val());
 		form_data.append("password", $("#password").val());
 		
-		send_post(url("application/configs/install/initiator.php"), form_data, function(result) {
+		send_post("/application/configs/install/initiator.php", form_data, function(result) {
 			if(result.alert == 'success') {
 				location.reload();
 			}
