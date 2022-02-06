@@ -66,7 +66,7 @@
 									</div>
 									<div class="col-lg-6">
 										<select class="form-control mb-2" name="template">
-											<option value="standart">Стандартный шаблон</option>
+											<option value="default">Стандартный шаблон</option>
 										</select>
 									</div>
 								</div>

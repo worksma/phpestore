@@ -9,7 +9,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,800&display=swap" rel="stylesheet">
     <link href="{assets}plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="{assets}plugins/font-awesome/css/all.min.css" rel="stylesheet">
     <link href="{assets}plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
 
     <link href="{assets}css/main.min.css" rel="stylesheet">
