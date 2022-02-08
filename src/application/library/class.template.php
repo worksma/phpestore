@@ -29,7 +29,7 @@
 			$this->assets 		= $_SERVER['DOCUMENT_ROOT'] . "/public/templates/$template/assets/";
 			$this->templates	= $_SERVER['DOCUMENT_ROOT'] . "/public/templates/$template/template/";
 			$this->temp 		= "";
-			$this->template = $template;
+			$this->template		= $template;
 			
 			return $this;
 		}

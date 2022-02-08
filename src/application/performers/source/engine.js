@@ -1,4 +1,8 @@
 $(function() {
+	preImage();
+});
+
+function preImage() {
 	const fimage = document.getElementsByClassName("preImage");
 	Array.from(fimage).map((item) => {
 		const img = new Image();
@@ -10,7 +14,7 @@ $(function() {
 				item.style.background = `url('${item.dataset.src}')`;
 		}
 	});	
-});
+}
 
 function url(file = null) {
 	if(file == null) {

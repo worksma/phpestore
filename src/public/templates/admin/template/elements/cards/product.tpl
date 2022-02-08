@@ -31,6 +31,16 @@
             
             <textarea id="description{id}" class="form-control">{description}</textarea>
           </div>
+		  
+		  <label for="category{id}" class="form-label mb-0">Категория</label>
+		  <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button" onclick="save_product('category', '{id}', $('#category{id}').val());">
+              <i class="far fa-save"></i>
+            </button>
+			
+			<select class="form-select" id="category{id}">{options}</select>
+		  </div>
+		  
 
           <label for="price{id}" class="form-label mb-0">Цена</label>
           <div class="input-group mb-3">

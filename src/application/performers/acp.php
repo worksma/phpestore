@@ -145,13 +145,14 @@
 		$image = $p->upload('image', 'images');
 
 		pdo()
-		->prepare("INSERT INTO `product`(`name`, `description`, `price`, `image`, `file`, `date`) VALUES (:name, :description, :price, :image, :file, :date)")
+		->prepare("INSERT INTO `product`(`name`, `description`, `price`, `image`, `file`, `category`, `date`) VALUES (:name, :description, :price, :image, :file, :category, :date)")
 		->execute([
 			':name'				=> $_POST['title'],
 			':description'		=> $_POST['description'],
 			':price'			=> $_POST['price'],
 			':image'			=> $image,
 			':file'				=> $file,
+			':category'			=> $_POST['category'],
 			':date'				=> date("Y-m-d H:i:s")
 		]);
 
@@ -239,5 +240,153 @@
 		result([
 			'alert'		=> 'success',
 			'message'	=> 'Сохранено'
+		]);
+	endif;
+	
+	if(isset($_POST['group_save'])):
+		$id = clean($_POST['id'], "int");
+		$pos = clean($_POST['position'], "int");
+		$name = clean($_POST['name']);
+		
+		try{
+			pdo()
+			->prepare("UPDATE `product__optgroup` SET `name`=:name,`position`=:pos WHERE `id`=:id LIMIT 1")
+			->execute([':id' => $id, ':name' => $name, ':pos' => $pos]);
+			
+			result([
+				'alert' => 'success',
+				'message' => 'Данные сохранены',
+				'content' => Product::get_groups()
+			]);
+		}
+		catch(Exception $e) {
+			result([
+				'alert' => 'warning',
+				'message' => $e->getMessage()
+			]);
+		}
+		catch(ParseError $e) {
+			result([
+				'alert' => 'error',
+				'message' => $e->getMessage()
+			]);
+		}
+	endif;
+	
+	if(isset($_POST['group_delete'])):
+		$id = clean($_POST['id'], "int");
+		$sth = pdo()->query("SELECT * FROM `product__category` WHERE `oid`='$id'");
+		
+		if($sth->rowCount()):
+			while($row = $sth->fetch(PDO::FETCH_OBJ)):
+				$ath = pdo()->query("SELECT * FROM `product` WHERE `category`='" . $row->id . "'");
+				
+				if($ath->rowCount()):
+					while($aow = $ath->fetch(PDO::FETCH_OBJ)):
+						(new Product)->delete($aow->id);
+					endwhile;
+				endif;
+				
+				pdo()->exec("DELETE FROM `product__category` WHERE `id`='" . $row->id . "' LIMIT 1");
+			endwhile;
+		endif;
+		
+		pdo()->exec("DELETE FROM `product__optgroup` WHERE `id`='$id' LIMIT 1");
+		result([
+			'alert' => 'success',
+			'message' => 'Операция прошла успешно!',
+			
+			'content_groups' => Product::get_groups(),
+			'content_category' => Product::get_category(),
+			'content_selects' => Product::get_select_groups()
+		]);
+	endif;
+	
+	if(isset($_POST['group_add'])):
+		$name = clean($_POST['name']);
+		$sth = pdo()->query("SELECT * FROM `product__optgroup` WHERE 1 ORDER BY `position` DESC LIMIT 1");
+		$pos = $sth->rowCount() ? $sth->fetch(PDO::FETCH_OBJ)->position + 1 : 1;
+		
+		pdo()->prepare("INSERT INTO `product__optgroup`(`name`, `position`) VALUES (:name, :pos)")->execute([
+			':name' => $name,
+			':pos' => $pos
+		]);
+		
+		result([
+			'alert' => 'success',
+			'message' => 'Контент добавлен',
+			
+			'content_groups' => Product::get_groups(),
+			'content_category' => Product::get_category(),
+			'content_selects' => Product::get_select_groups()
+		]);
+	endif;
+	
+	if(isset($_POST['category_save'])):
+		$id = clean($_POST['id'], "int");
+		$pos = clean($_POST['position'], "int");
+		$name = clean($_POST['name']);
+		$gip = clean($_POST['gip'], "int");
+		
+		try{
+			pdo()
+			->prepare("UPDATE `product__category` SET `oid`=:gip,`name`=:name,`position`=:pos WHERE `id`=:id LIMIT 1")
+			->execute([':id' => $id, ':name' => $name, ':pos' => $pos, ':gip' => $gip]);
+			
+			result([
+				'alert' => 'success',
+				'message' => 'Данные сохранены',
+				'content' => Product::get_category()
+			]);
+		}
+		catch(Exception $e) {
+			result([
+				'alert' => 'warning',
+				'message' => $e->getMessage()
+			]);
+		}
+		catch(ParseError $e) {
+			result([
+				'alert' => 'error',
+				'message' => $e->getMessage()
+			]);
+		}
+	endif;
+	
+	if(isset($_POST['category_add'])):
+		$name = clean($_POST['name']);
+		$oid = clean($_POST['oid'], "int");
+		$sth = pdo()->query("SELECT * FROM `product__category` WHERE 1 ORDER BY `position` DESC LIMIT 1");
+		$pos = $sth->rowCount() ? $sth->fetch(PDO::FETCH_OBJ)->position + 1 : 1;
+		
+		pdo()->prepare("INSERT INTO `product__category`(`name`, `position`, `oid`) VALUES (:name, :pos, :oid)")->execute([
+			':name' => $name,
+			':pos' => $pos,
+			':oid' => $oid
+		]);
+		
+		result([
+			'alert' => 'success',
+			'message' => 'Контент добавлен',
+			'content' => Product::get_category()
+		]);
+	endif;
+	
+	if(isset($_POST['category_delete'])):
+		$id = clean($_POST['id'], "int");
+		
+		$sth = pdo()->query("SELECT * FROM `product` WHERE `category`='$id'");
+		if($sth->rowCount()):
+			while($row = $sth->fetch(PDO::FETCH_OBJ)):
+				(new Product)->delete($row->id);
+			endwhile;
+		endif;
+		
+		pdo()->exec("DELETE FROM `product__category` WHERE `id`='$id' LIMIT 1");
+		
+		result([
+			'alert' => 'success',
+			'message' => 'Операция прошла успешно!',
+			'content' => Product::get_category()
 		]);
 	endif;

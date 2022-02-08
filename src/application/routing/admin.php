@@ -1,7 +1,7 @@
 <?PHP
 	Routing::get("/admin", function() {
 		if(!usr()->access($_SESSION['id'], "a")):
-			redirect("/404");
+			return redirect("/404");
 		endif;
 
 		tpl()
@@ -25,7 +25,7 @@
 
 	Routing::get("/admin/users", function() {
 		if(!usr()->access($_SESSION['id'], "a")):
-			redirect("/404");
+			return redirect("/404");
 		endif;
 
 		tpl()
@@ -39,7 +39,7 @@
 
 	Routing::get("/admin/wallet", function() {
 		if(!usr()->access($_SESSION['id'], "a")):
-			redirect("/404");
+			return redirect("/404");
 		endif;
 
 		tpl()
@@ -53,7 +53,7 @@
 
 	Routing::get("/admin/product", function() {
 		if(!usr()->access($_SESSION['id'], "a")):
-			redirect("/404");
+			return redirect("/404");
 		endif;
 
 		tpl()
@@ -62,12 +62,13 @@
 		->title("Управление товарами")
 		->set("{content}", tpl()->get("main/product"))
 		->set("{nav}", tpl()->nav("left-vertical"))
+		->set("{category}", Product::get_select_groups())
 		->end();
 	});
 
 	Routing::get("/admin/dev", function() {
 		if(!usr()->access($_SESSION['id'], "a")):
-			redirect("/404");
+			return redirect("/404");
 		endif;
 
 		tpl()
@@ -76,5 +77,22 @@
 		->title("Уголок разработчика")
 		->set("{content}", tpl()->get("main/dev"))
 		->set("{nav}", tpl()->nav("left-vertical"))
+		->end();
+	});
+	
+	Routing::get("/admin/category", function() {
+		if(!usr()->access($_SESSION['id'], "a")):
+			return redirect("/404");
+		endif;
+
+		tpl()
+		->set_template("admin")
+		->run()
+		->title("Управление категориями")
+		->set("{content}", tpl()->get("main/category"))
+		->set("{nav}", tpl()->nav("left-vertical"))
+		->set("{groups}", Product::get_groups())
+		->set("{category}", Product::get_category())
+		->set("{options}", Product::get_select_groups())
 		->end();
 	});

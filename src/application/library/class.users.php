@@ -143,4 +143,23 @@
 
 			return true;
 		}
+		
+		public function expenses($uid = null) {
+			if(empty($uid)):
+				$uid = $_SESSION['id'];
+			endif;
+		
+			$sth = pdo()->query("SELECT * FROM `product__purchases` WHERE `id_user`='$uid' and `price`!=0");
+			
+			$amount = 0;
+			if(!$sth->rowCount()):
+				return $amount;
+			endif;
+			
+			while($row = $sth->fetch(PDO::FETCH_OBJ)):
+				$amount += $row->price;
+			endwhile;
+			
+			return $amount;
+		}
 	}

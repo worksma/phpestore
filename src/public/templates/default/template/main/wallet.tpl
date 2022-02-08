@@ -2,9 +2,9 @@
 	<div class="col-lg-12 mb-4">
 		<div class="card">
 			<div class="row">
-				<div class="col p-4 text-center expenses" data-bs-toggle="tooltip" data-bs-placement="top" title="В разработке">
+				<div class="col p-4 text-center expenses">
 					<h5>Потрачено</h5>
-					<span>NaN &#8381;</span>
+					<span>{expenses} &#8381;</span>
 				</div>
 				<div class="col p-4 text-center balance">
 					<h5>Текущий баланс</h5>

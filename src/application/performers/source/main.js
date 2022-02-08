@@ -1,14 +1,15 @@
-function get_product(id) {
-	send_post(url("main"), serializeform(new FormData, {
-		get_product: 1,
-		id: id
-	}), (result) => {
+function get_product(pid) {
+	send_post(url("main"), serializeform(new FormData, {get_product: 1, id: pid}), (result) => {
 		if(result.alert == 'success') {
-			$("#f_id").val(id);
+			$("#f_id").val(pid);
 			$("#f_name").html(result.name);
 			$("#f_price").html(result.price);
 			$("#f_description").html(result.description);
 			$("#f_screenshot").html(result.images);
+			$("#f_category").html(result.category);
+			
+			preImage();
+			$("#full_open").modal("show");
 		}
 		else {
 			push(result.message, result.alert);
@@ -24,7 +25,7 @@ function delete_purchases(id) {
 		}), (result) => {
 			$("#purchases").html(result);
 		});
-	}
+		}
 }
 
 function apps_login_vk() {

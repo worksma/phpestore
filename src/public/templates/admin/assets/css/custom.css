@@ -1,1 +1,13 @@
 /* Write your custom CSS here */
+.groups ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.groups ul li {
+	display: initial;
+}
+
+.w-60 {
+	width: 60% !important;
+}

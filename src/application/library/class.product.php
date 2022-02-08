@@ -20,6 +20,26 @@
 
 			return tpl()->e_end();
 		}
+		
+		public function getCategory($id) {
+			$sth = pdo()->query("SELECT * FROM `product__category` WHERE `id`='$id' LIMIT 1");
+			
+			if(!$sth->rowCount()):
+				return null;
+			endif;
+			
+			return $sth->fetch(PDO::FETCH_OBJ);
+		}
+		
+		public function getGroupCategory($id) {
+			$sth = pdo()->query("SELECT * FROM `product__optgroup` WHERE `id`='$id' LIMIT 1");
+			
+			if(!$sth->rowCount()):
+				return null;
+			endif;
+			
+			return $sth->fetch(PDO::FETCH_OBJ);
+		}
 
 		public function get($id) {
 			$sth = pdo()->query("SELECT * FROM `product` WHERE `id`='$id' LIMIT 1");
@@ -45,12 +65,21 @@
 					endwhile;
 				endif;
 
+				$category[0] = $this->getCategory($row->category);
+				if(isset($category[0])):
+					$category[1] = $this->getGroupCategory($category[0]->oid);
+					$category = $category[1]->name . " - " . $category[0]->name;
+				else:
+					$category = "None";
+				endif;
+
 				result([
 					'alert' 		=> 'success',
 					'name'			=> $row->name,
 					'description'	=> $row->description,
 					'price'			=> (($row->price <= 0) ? "Бесплатно" : ($row->price . " &#8381;")),
-					'images'		=> tpl()->e_end()
+					'images'		=> tpl()->e_end(),
+					'category'		=> $category
 				]);
 			endif;
 
@@ -59,8 +88,9 @@
 				'message'		=> 'Запрашиваемый товар не найден!',
 				'name'			=> 'none',
 				'description'	=> 'none',
-				'price'			=> 'none',
-				'image'			=> 'none'
+				'price'			=> 'NaN',
+				'image'			=> 'none',
+				'category'		=> 'none'
 			]);
 		}
 
@@ -177,5 +207,58 @@
 				'alert'			=> 'error',
 				'message'		=> $_FILES[$file]['error']
 			]);
+		}
+		
+		public static function get_groups() {
+			$sth = pdo()->query("SELECT * FROM `product__optgroup` WHERE 1 ORDER BY `position` ASC");
+			
+			if(!$sth->rowCount()):
+				return "<center>Нет групп</center>";
+			endif;
+			
+			$t = new Template;
+			$t->set_template("admin")->e_clear();
+			while($row = $sth->fetch(PDO::FETCH_OBJ)):
+				$t->e_add("groups")->e_set("{name}", $row->name)->e_set("{position}", $row->position)->e_set("{id}", $row->id);
+			endwhile;
+			
+			return $t->e_end();
+		}
+		
+		public static function get_select_groups($id = null) {
+			$sth = pdo()->query("SELECT * FROM `product__optgroup` WHERE 1 ORDER BY `position` ASC");
+			if($sth->rowCount()):
+				while($row = $sth->fetch(PDO::FETCH_OBJ)):
+					$select .= "<option value='" . $row->id . "' " . (empty($id) ?: ($id != $row->id ?: "selected")) . ">" . $row->name . "</option>";
+				endwhile;
+			else:
+				$select = "<option disabled selected value=\"0\">Нет группы</option>";
+			endif;
+			
+			return $select;
+		}
+		
+		public static function get_category() {
+			$sth = pdo()->query("SELECT * FROM `product__category` WHERE 1 ORDER BY `oid`, `position` ASC");
+			
+			if(!$sth->rowCount()):
+				return "<center>Нет категорий</center>";
+			endif;
+			
+			$t = new Template;
+			$t->set_template("admin")->e_clear();
+			while($row = $sth->fetch(PDO::FETCH_OBJ)):
+				$ath = pdo()->query("SELECT * FROM `product__optgroup` WHERE 1 ORDER BY `position` ASC");
+				
+				$select = self::get_select_groups($row->oid);
+				
+				$t->e_add("category")
+				->e_set("{id}", $row->id)
+				->e_set("{name}", $row->name)
+				->e_set("{position}", $row->position)
+				->e_set("{select}", $select);
+			endwhile;
+			
+			return $t->e_end();
 		}
 	}

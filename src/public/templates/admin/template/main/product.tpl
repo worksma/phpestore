@@ -27,7 +27,14 @@
           <div class="input-group mb-3">
             <textarea name="description" id="a_description" class="form-control" placeholder="Опишите свой товар и его возможности" required></textarea>
           </div>
-
+			
+          <label for="a_description" class="form-label mb-0">Категория</label>
+          <div class="input-group mb-3">
+            <select class="form-select" name="category">
+				{category}
+			</select>
+          </div>
+		  
           <div class="row">
             <div class="col-lg-6 mb-2">
               <label for="a_price" class="form-label mb-0">Цена</label>

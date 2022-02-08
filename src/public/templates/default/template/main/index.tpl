@@ -26,6 +26,7 @@
 				
 				<p class="mt-4" id="f_description">none</p>
 				<p class="mini-info">
+					Категория: <span id="f_category">None</span>
 					Стоимость: <span id="f_price">NaN</span>
 				</p>
 			</div>

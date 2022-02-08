@@ -56,6 +56,93 @@ function download_update(version) {
 	}), () => location.reload());
 }
 
+function group_save(id, name, pos) {
+	send_post(url("acp"), serializeform(new FormData, {
+		group_save: 1,
+		id: id,
+		name: name,
+		position: pos
+	}), (result) => {
+		if(result.alert == 'success') {
+			$("#groups").html(result.content);
+		}
+		
+		push(result.message, result.alert);
+	});
+}
+
+function group_delete(id) {
+	alert("Удаление группы повлечет удаление категорий и товаров в них.");
+	if(confirm("Вы действительно хотите удалить Группу?")) {
+		send_post(url("acp"), serializeform(new FormData, {group_delete: 1, id: id}), (result) => {
+			if(result.alert == 'success') {
+				$("#groups").html(result.content_groups);
+				$("#category").html(result.content_category);
+				$("#selects").html(result.content_selects);
+			}
+			
+			push(result.message, result.alert);
+		});
+	}
+}
+
+function group_add() {
+	send_post(url("acp"), serializeform(new FormData, {
+		group_add: 1, name: $("#group_name").val()
+	}), (result) => {
+		if(result.alert == 'success') {
+			$("#groups").html(result.content_groups);
+			$("#category").html(result.content_category);
+			$("#selects").html(result.content_selects);
+			
+			$("#group_name").val("");
+		}
+		
+		push(result.message, result.alert);
+	});
+}
+
+function category_save(id, name, pos, gip) {
+	send_post(url("acp"), serializeform(new FormData, {
+		category_save: 1,
+		id: id,
+		name: name,
+		position: pos,
+		gip: gip
+	}), (result) => {
+		if(result.alert == 'success') {
+			$("#category").html(result.content);
+		}
+		
+		push(result.message, result.alert);
+	});
+}
+
+function category_add() {
+	send_post(url("acp"), serializeform(new FormData, {
+		category_add: 1, name: $("#category_name").val(), oid: $("#selects").val()
+	}), (result) => {
+		if(result.alert == 'success') {
+			$("#category").html(result.content);
+			$("#category_name").val("");
+		}
+		
+		push(result.message, result.alert);
+	});
+}
+
+function category_delete(id) {
+	alert("Удаление категории повлечет удаление товаров в них.");
+	if(confirm("Вы действительно хотите удалить Категорию?")) {
+		send_post(url("acp"), serializeform(new FormData, {category_delete: 1, id: id}), (result) => {
+			if(result.alert == 'success') {
+				$("#category").html(result.content);
+			}
+			
+			push(result.message, result.alert);
+		});
+	}
+}
 
 $(function() {
 	$("#form_add_product").submit(function(e) {

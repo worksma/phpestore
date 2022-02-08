@@ -37,7 +37,7 @@
 				endif;
 
 				if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/public/templates/' . $folders[$i] . '/template/sample.tpl')):
-					continue;
+				continue;
 				endif;
 
 				$temp .= "<option ".(($folders[$i] != conf()->template) ?: 'selected')." value=\"{$folders[$i]}\">{$folders[$i]}</option>";
@@ -69,6 +69,7 @@
 				->e_set("{name}", $row->name)
 				->e_set("{description}", $row->description)
 				->e_set("{price}", $row->price)
+				->e_set("{options}", Product::get_select_groups($row->category))
 				->e_set("{image}", $row->image);
 			endwhile;
 

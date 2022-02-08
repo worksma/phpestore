@@ -168,6 +168,7 @@
 		->set("{content}", tpl()->get("main/wallet"))
 		->set("{nav}", tpl()->nav("top-horizontal", "wallet"))
 		->set("{purse}", Pay::purse($_SESSION['id']))
+		->set("{expenses}", usr()->expenses($_SESSION['id']))
 		->end();
 	});
 
