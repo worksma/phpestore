@@ -2,7 +2,7 @@
 	Routing::get("/", function() {
 		tpl()
 		->run()
-		->title("Главная страница")
+		->title("home")
 		->set("{content}", tpl()->get("main/index"))
 		->set("{nav}", tpl()->nav("top-horizontal", "home"))
 		->set("{products}", (new Product)->getAll())
@@ -12,8 +12,8 @@
 	Routing::get("/404", function() {
 		tpl()
 		->run()
-		->title("Страница не найдена")
-		->set("{content}", "<center>Запрашиваемая страница не найдена!</center>")
+		->title("404")
+		->set("{content}", "<center>". lang()->get('errors', 'no_page') ."</center>")
 		->set("{nav}", tpl()->nav("top-horizontal"))
 		->end();
 	});
@@ -25,7 +25,7 @@
 
 		tpl()
 		->run()
-		->title("Вход на сайт")
+		->title("login")
 		->set("{content}", tpl()->get("main/login"))
 		->set("{nav}", tpl()->nav("top-horizontal", "login"))
 		->end();
@@ -98,7 +98,7 @@
 
 		tpl()
 		->run()
-		->title("Регистрация")
+		->title("register")
 		->set("{content}", tpl()->get("main/register"))
 		->set("{nav}", tpl()->nav("top-horizontal", "register"))
 		->end();
@@ -119,7 +119,7 @@
 
 		tpl()
 		->run()
-		->title("Мои покупки")
+		->title("purchases")
 		->set("{content}", tpl()->get("main/purchases"))
 		->set("{nav}", tpl()->nav("top-horizontal", "purchases"))
 		->set("{purchases}", (new Product)->purchases($_SESSION['id']))
@@ -129,7 +129,7 @@
 	Routing::get("/contact", function() {
 		tpl()
 		->run()
-		->title("Контакты")
+		->title("contacts")
 		->set("{content}", tpl()->get("main/contact"))
 		->set("{nav}", tpl()->nav("top-horizontal", "contact"))
 		->end();
@@ -138,7 +138,7 @@
 	Routing::get("/garant", function() {
 		tpl()
 		->run()
-		->title("Гарантии")
+		->title("garants")
 		->set("{content}", tpl()->get("main/garant"))
 		->set("{nav}", tpl()->nav("top-horizontal", "garant"))
 		->end();
@@ -147,7 +147,7 @@
 	Routing::get("/reviews", function() {
 		tpl()
 		->run()
-		->title("Отзывы")
+		->title("reviews")
 		->set("{content}", tpl()->get("main/reviews"))
 		->set("{nav}", tpl()->nav("top-horizontal", "reviews"))
 		->end();
@@ -164,7 +164,7 @@
 
 		tpl()
 		->run()
-		->title("Кошелёк")
+		->title("wallet")
 		->set("{content}", tpl()->get("main/wallet"))
 		->set("{nav}", tpl()->nav("top-horizontal", "wallet"))
 		->set("{purse}", Pay::purse($_SESSION['id']))
@@ -197,13 +197,12 @@
 
 				$uid 		= $_POST['MERCHANT_ORDER_ID'];
 				$amount		= intval($_POST['AMOUNT']);
-
-				$pay
-				->logs("Пользователь: $uid пополнил баланс на сумму: $amount руб., через систему $system");
+				
+				$pay->logs(lang()->get('purse', 'noty', ['_UID_' => $uid, '_AMOUNT_' => $amount, '_SYSTEM_' => $system]));
 
 				$balance = usr()->get_balance($uid);
 				usr()->set_balance($uid, $balance + $amount);
-				usr()->purse($uid, $amount, "Пополнение профиля", $system);
+				usr()->purse($uid, $amount, lang()->get('purse', 'history'), $system);
 
 				exit("YES");
 			break;
@@ -241,14 +240,40 @@
 					endif;
 
 					$amount = intval($amount);
-					$pay->logs("Пользователь: $uid пополнил баланс на сумму: $amount руб., через систему $system");
+					$pay->logs(lang()->get('purse', 'noty', ['_UID_' => $uid, '_AMOUNT_' => $amount, '_SYSTEM_' => $system]));
 
 					$balance = usr()->get_balance($uid);
 					usr()->set_balance($uid, $balance + $amount);
-					usr()->purse($uid, $amount, "Пополнение профиля", $system);
+					usr()->purse($uid, $amount, lang()->get('purse', 'history'), $system);
 
 					exit("OK");
 				endif;
+			break;
+			
+			case "lava":
+				$result = json_decode(file_get_contents("php://input"));
+				
+				if(!Lava::is_valid($result->invoice_id)):
+					http_response_code(400);
+					exit("Error: [bad signature]");
+				endif;
+				
+				$uid = $result->custom_fields;
+					
+				if(!usr()->exists($uid)):
+					http_response_code(404);
+					exit('Error: [User does not exist]');
+				endif;
+					
+				$user = usr()->get($uid);
+				$amount = intval($result->amount);
+				
+				$pay->logs(lang()->get('purse', 'noty', ['_UID_' => $uid, '_AMOUNT_' => $amount, '_SYSTEM_' => $system]));
+				$balance = usr()->get_balance($uid);
+				usr()->set_balance($uid, $balance + $amount);
+				usr()->purse($uid, $amount, lang()->get('purse', 'history'), $system);
+				
+				exit("OK");
 			break;
 		endswitch;
 
@@ -259,4 +284,21 @@
 		if(!download($hash)):
 			redirect('/404');
 		endif;
+	});
+	
+	Routing::get("/id(\d+)", function($uid) {
+		if(!usr()->exists($uid)) {
+			return redirect("/404");
+		}
+		
+		$user = usr()->get($uid);
+		
+		tpl()->run()->title("profile:['_LOGIN_' => '$user->name $user->surname']")
+		->set("{content}", tpl()->get("main/profile"))
+		->set("{nav}", tpl()->nav("top-horizontal", "profile"))
+		->set("{login}", $user->login)
+		->set("{avatar}", $user->ava)
+		->set("{first_name}", $user->name)
+		->set("{last_name}", $user->surname)
+		->end();
 	});

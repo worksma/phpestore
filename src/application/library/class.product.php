@@ -4,7 +4,7 @@
 			$sth = pdo()->query("SELECT * FROM `product` WHERE 1 ORDER BY `id` DESC");
 
 			if(!$sth->rowCount()):
-				return "<center>Товаров нет.</center>";
+				return "<center>". lang()->get('noty', 'no_product') ."</center>";
 			endif;
 
 			tpl()->e_clear();
@@ -12,7 +12,7 @@
 				tpl()
 				->e_add("cards/product")
 				->e_set("{id}", $row->id)
-				->e_set("{price}", (($row->price <= 0) ? "Бесплатно" : ($row->price . " &#8381;")))
+				->e_set("{price}", (($row->price <= 0) ? lang()->get('other', 'free') : ($row->price . " &#8381;")))
 				->e_set("{name}", $row->name)
 				->e_set("{image}", $row->image)
 				->e_set("{description}", $row->description);
@@ -77,7 +77,7 @@
 					'alert' 		=> 'success',
 					'name'			=> $row->name,
 					'description'	=> $row->description,
-					'price'			=> (($row->price <= 0) ? "Бесплатно" : ($row->price . " &#8381;")),
+					'price'			=> (($row->price <= 0) ? lang()->get('other', 'free') : ($row->price . " &#8381;")),
 					'images'		=> tpl()->e_end(),
 					'category'		=> $category
 				]);
@@ -85,7 +85,7 @@
 
 			result([
 				'alert' 		=> 'warning',
-				'message'		=> 'Запрашиваемый товар не найден!',
+				'message'		=> lang()->get('errors', 'search_product'),
 				'name'			=> 'none',
 				'description'	=> 'none',
 				'price'			=> 'NaN',
@@ -100,7 +100,7 @@
 			if(!$sth->rowCount()):
 				result([
 					'alert'		=> 'error',
-					'message'	=> 'Товар не найден!'
+					'message'	=> lang()->get('errors', 'search_product')
 				]);
 			endif;
 
@@ -114,7 +114,7 @@
 			if($balance < $price):
 				result([
 					'alert'		=> 'error',
-					'message'	=> 'Недостаточно средств!'
+					'message'	=> lang()->get('errors', 'money')
 				]);
 			endif;
 
@@ -131,7 +131,7 @@
 
 			result([
 				'alert'		=> 'success',
-				'message'	=> "Проверьте список своих товаров!<br>Спасибо за покупку!"
+				'message'	=> lang()->get('noty', 'thank_you')
 			]);
 		}
 
@@ -139,7 +139,7 @@
 			$sth = pdo()->query("SELECT * FROM `product__purchases` WHERE `id_user`='$uid' ORDER BY `id` DESC");
 
 			if(!$sth->rowCount()):
-				return "<tr><td colspan=\"5\" class=\"text-center\">Вы ничего не купили.</td></tr>";
+				return "<tr><td colspan=\"5\" class=\"text-center\">" . lang()->get('noty', 'no_purchases') . "</td></tr>";
 			endif;
 
 			tpl()->e_clear();
@@ -213,7 +213,7 @@
 			$sth = pdo()->query("SELECT * FROM `product__optgroup` WHERE 1 ORDER BY `position` ASC");
 			
 			if(!$sth->rowCount()):
-				return "<center>Нет групп</center>";
+				return "<center>" . lang()->get('errors', 'groups') . "</center>";
 			endif;
 			
 			$t = new Template;
@@ -232,7 +232,7 @@
 					$select .= "<option value='" . $row->id . "' " . (empty($id) ?: ($id != $row->id ?: "selected")) . ">" . $row->name . "</option>";
 				endwhile;
 			else:
-				$select = "<option disabled selected value=\"0\">Нет группы</option>";
+				$select = "<option disabled selected value=\"0\">" . lang()->get('errors', 'groups') . "</option>";
 			endif;
 			
 			return $select;
@@ -242,7 +242,7 @@
 			$sth = pdo()->query("SELECT * FROM `product__category` WHERE 1 ORDER BY `oid`, `position` ASC");
 			
 			if(!$sth->rowCount()):
-				return "<center>Нет категорий</center>";
+				return "<center>" . lang()->get('errors', 'category') . "</center>";
 			endif;
 			
 			$t = new Template;

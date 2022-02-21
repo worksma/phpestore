@@ -9,17 +9,17 @@
               
               if($v->alert == 'success'):
             ?>
-            <button class="btn btn-outline-primary" disabled>Обновить</button>
+            <button class="btn btn-outline-primary" disabled>~{other:update}</button>
             <?else:?>
-            <button class="btn btn-outline-primary" onclick="download_update('<?=$v->new_version;?>');">Обновить</button>
+            <button class="btn btn-outline-primary" onclick="download_update('<?=$v->new_version;?>');">~{other:update}</button>
             <?endif;?>
           </div>
           <div class="col-6">
             <div class="d-flex justify-content-end">
               <span class="text-muted">
-                Версия: <?=System::version()->version;?>
+                ~{other:version}: <?=System::version()->version;?>
                 <br>
-                <small style="float:right;">От: <?=date("d.m.Y (H:i)", strtotime(System::version()->date));?></small>
+                <small style="float:right;">~{other:from}: <?=date("d.m.Y (H:i)", strtotime(System::version()->date));?></small>
               </span>
             </div>
           </div>

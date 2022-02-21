@@ -32,7 +32,7 @@
                 <a class="nav-link" id="sidebar-toggle" href="javascript:void(0);"><i data-feather="arrow-left"></i></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/">Вернуться на сайт</a>
+                <a class="nav-link" href="/">~{other:revert}</a>
               </li>
             </ul>
           </div>

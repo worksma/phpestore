@@ -4,21 +4,21 @@
 	if(empty($_POST['php_action'])):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Прямой вызов скрипта'
+			'message'		=> lang()->get('errors', 'exploit')
 		]);
 	endif;
 
 	if($_SESSION['token'] != $_POST['token']):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Неверный токен'
+			'message'		=> lang()->get('errors', 'token')
 		]);
 	endif;
 
 	if(!usr()->access($_SESSION['id'], "a")):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Недостаточно прав'
+			'message'		=> lang()->get('errors', 'access')
 		]);
 	endif;
 	
@@ -29,7 +29,7 @@
 		
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Индекс кэширования обновлён'
+			'message'		=> lang()->get('noty', 'update_cache')
 		]);
 	endif;
 	
@@ -38,7 +38,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Отзывы почищены'
+			'message'		=> lang()->get('noty', 'clear_reviews')
 		]);
 	endif;
 
@@ -47,7 +47,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Покупки почищены'
+			'message'		=> lang()->get('noty', 'clear_pays')
 		]);
 	endif;
 
@@ -74,9 +74,21 @@
 			case "qiwi_enable":
 				pdo()->exec("UPDATE `configs__kassa` SET `enable`='$value' WHERE `code_name`='qiwi' LIMIT 1");
 			break;
-
+			
 			case "qiwi_key":
 				pdo()->exec("UPDATE `configs__kassa` SET `password1`='$value' WHERE `code_name`='qiwi' LIMIT 1");
+			break;
+
+			case "lava_enable":
+				pdo()->exec("UPDATE `configs__kassa` SET `enable`='$value' WHERE `code_name`='lava' LIMIT 1");
+			break;
+
+			case "lava_id":
+				pdo()->exec("UPDATE `configs__kassa` SET `password2`='$value' WHERE `code_name`='lava' LIMIT 1");
+			break;
+
+			case "lava_secret":
+				pdo()->exec("UPDATE `configs__kassa` SET `password1`='$value' WHERE `code_name`='lava' LIMIT 1");
 			break;
 
 			case "fk_enable":
@@ -110,7 +122,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Данные сохранены'
+			'message'		=> lang()->get('noty', 'save_data')
 		]);
 	endif;
 
@@ -130,7 +142,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Сохранено'
+			'message'		=> lang()->get('noty', 'save_data')
 		]);
 	endif;
 
@@ -211,7 +223,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Сохранено'
+			'message'		=> lang()->get('noty', 'save_data')
 		]);
 	endif;
 
@@ -239,7 +251,7 @@
 
 		result([
 			'alert'		=> 'success',
-			'message'	=> 'Сохранено'
+			'message'	=> lang()->get('noty', 'save_data')
 		]);
 	endif;
 	
@@ -255,7 +267,7 @@
 			
 			result([
 				'alert' => 'success',
-				'message' => 'Данные сохранены',
+				'message' => lang()->get('noty', 'save_data'),
 				'content' => Product::get_groups()
 			]);
 		}
@@ -294,7 +306,7 @@
 		pdo()->exec("DELETE FROM `product__optgroup` WHERE `id`='$id' LIMIT 1");
 		result([
 			'alert' => 'success',
-			'message' => 'Операция прошла успешно!',
+			'message' => lang()->get('noty', 'success_operation'),
 			
 			'content_groups' => Product::get_groups(),
 			'content_category' => Product::get_category(),
@@ -314,7 +326,7 @@
 		
 		result([
 			'alert' => 'success',
-			'message' => 'Контент добавлен',
+			'message' => lang()->get('noty', 'add_content'),
 			
 			'content_groups' => Product::get_groups(),
 			'content_category' => Product::get_category(),
@@ -335,7 +347,7 @@
 			
 			result([
 				'alert' => 'success',
-				'message' => 'Данные сохранены',
+				'message' => lang()->get('noty', 'save_data'),
 				'content' => Product::get_category()
 			]);
 		}
@@ -367,7 +379,7 @@
 		
 		result([
 			'alert' => 'success',
-			'message' => 'Контент добавлен',
+			'message' => lang()->get('noty', 'add_content'),
 			'content' => Product::get_category()
 		]);
 	endif;
@@ -386,7 +398,7 @@
 		
 		result([
 			'alert' => 'success',
-			'message' => 'Операция прошла успешно!',
+			'message' => lang()->get('noty', 'success_operation'),
 			'content' => Product::get_category()
 		]);
 	endif;

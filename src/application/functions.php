@@ -155,3 +155,13 @@
 			'ext' => $ext
 		];
 	}
+	
+	function lang() {
+		global $lang;
+		
+		if(isset($lang)) {
+			return $lang;
+		}
+		
+		return new Languages($conf->language);
+	}

@@ -19,3 +19,4 @@
 	$usr = new Users;
 	$tpl = new Template;
 	$conf = pdo()->query("SELECT * FROM `configs` LIMIT 1")->fetch(PDO::FETCH_OBJ);
+	$lang = new Languages($conf->language);

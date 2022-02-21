@@ -80,7 +80,7 @@
 			$sth = pdo()->query("SELECT * FROM `users` WHERE 1");
 
 			if(!$sth->rowCount()):
-				return "<center>Пользователей нет.</center>";
+				return "<center>" . lang()->get('noty', 'no_users') . "</center>";
 			endif;
 
 			tpl()->e_clear();

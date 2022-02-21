@@ -26,8 +26,8 @@
 				
 				<p class="mt-4" id="f_description">none</p>
 				<p class="mini-info">
-					Категория: <span id="f_category">None</span>
-					Стоимость: <span id="f_price">NaN</span>
+					~{other:category}: <span id="f_category">None</span>
+					~{other:price}: <span id="f_price">NaN</span>
 				</p>
 			</div>
 			
@@ -35,7 +35,7 @@
 				<?if(isset($_SESSION['id'])):?>
 				<input type="submit" class="btn btn-primary" value="Купить">
 				<?else:?>
-				<a href="/login">Авторизуйтесь</a>, чтобы купить.
+				~{other:primarily_auth}
 				<?endif;?>
 			</div>
 		</form>

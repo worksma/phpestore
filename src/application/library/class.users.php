@@ -1,6 +1,12 @@
 <?PHP
 	class Users {
 		public function exists($uid) {
+			$uid = clean($uid, "int");
+			
+			if(empty($uid)) {
+				return false;
+			}
+			
 			return pdo()->query("SELECT * FROM `users` WHERE `id`='$uid' LIMIT 1")->rowCount();
 		}
 
@@ -8,7 +14,7 @@
 			if(!$this->exists($uid)):
 				result([
 					'alert'			=> 'error',
-					'message'		=> 'Запрашиваемый пользователь не найден!'
+					'message'		=> lang()->get('errors', 'exists_user')
 				]);
 			endif;
 
@@ -35,7 +41,7 @@
 			if(!$sth->rowCount()):
 				result([
 					'alert'			=> 'error',
-					'message'		=> 'Неверный логин или пароль!'
+					'message'		=> lang()->get('errors', 'login')
 				]);
 			endif;
 
@@ -49,7 +55,7 @@
 
 			result([
 				'alert'			=> 'success',
-				'message'		=> 'Успешная авторизация!'
+				'message'		=> lang()->get('errors', 'success_login')
 			]);
 		}
 
@@ -59,7 +65,7 @@
 			if($sth->rowCount()):
 				result([
 					'alert'			=> 'error',
-					'message'		=> 'Данный логин уже занят!'
+					'message'		=> lang()->get('errors', 'exists_login')
 				]);
 			endif;
 
@@ -82,7 +88,7 @@
 			
 			result([
 				'alert'			=> 'success',
-				'message'		=> 'Успешная регистрация!'
+				'message'		=> lang()->get('errors', 'success_register')
 			]);
 		}
 

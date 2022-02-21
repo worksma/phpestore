@@ -36,7 +36,7 @@
 
 		public function run() {
 			if(!file_exists($this->templates . "sample.tpl")):
-				exit("[Шаблонизатор: не найден файл: {$this->templates}sample.tpl]");
+				exit(lang()->get('errors', 'template', ['_TEMPLATE_' => $this->templates . 'sample.tpl']));
 			else:
 				$this->temp = file_get_contents($this->templates . "sample.tpl");
 			endif;
@@ -45,13 +45,13 @@
 		}
 
 		public function title($name) {
-			$this->page_name = $name;
+			$this->page_name = "~{title:$name}";
 			return $this;
 		}
 
 		public function get($file) {
 			if(!file_exists($this->templates . $file . ".tpl")):
-				return "[Шаблонизатор: не найден файл: {$this->templates}{$file}.tpl]";
+				exit(lang()->get('errors', 'template', ['_TEMPLATE_' => $this->templates . "$file.tpl"]));
 			endif;
 
 			return file_get_contents($this->templates . $file . ".tpl");
@@ -72,7 +72,18 @@
 			$message = $this->set("{cache}", conf()->cache, $message);
 			$message = $this->set("{token}", $_SESSION['token'], $message);
 			$message = $this->set("{title}", $this->page_name . " | " . conf()->title, $message);
-
+			
+			return $this->changeLanguage($message);
+		}
+		
+		public function changeLanguage($message) {
+			preg_match_all("/~{(.*?)}/", $message, $_explode);
+			
+			for($i = 0; $i < sizeof($_explode[1]); $i++) {
+				$_2explode = explode(':', $_explode[1][$i]);
+				$message = $this->set($_explode[0][$i], lang()->get($_2explode[0], $_2explode[1], eval('return ' . $_2explode[2] . ';')), $message);
+			}
+			
 			return $message;
 		}
 

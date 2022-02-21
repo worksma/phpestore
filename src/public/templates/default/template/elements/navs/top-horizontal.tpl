@@ -18,16 +18,16 @@
 <div class="offcanvas offcanvas-top" tabindex="-1" id="panelTop">
 	<div class="offcanvas-body">
 		<ul>
-			<li><a href="/">Главная</a></li>
+			<li><a href="/">~{top_horizontal:home}</a></li>
 			<?if(isset($_SESSION['id'])):?>
-			<li><a href="/wallet">Кошелёк</a></li>
-			<li><a href="/purchases">Покупки</a></li>
+			<li><a href="/wallet">~{top_horizontal:wallet}</a></li>
+			<li><a href="/purchases">~{top_horizontal:purchases}</a></li>
 			<?if(usr()->access($_SESSION['id'], "a")):?>
-			<li><a href="/admin">Админ панель</a></li>
+			<li><a href="/admin">~{top_horizontal:panel}</a></li>
 			<?endif;?>
-			<li><a href="/logout">Выйти</a></li>
+			<li><a href="/logout">~{other:logout}</a></li>
 			<?else:?>
-			<li><a href="/login">Войти на сайт</a></li>
+			<li><a href="/login">~{other:login}</a></li>
 			<?endif;?>
 		</ul>
 	</div>

@@ -19,12 +19,13 @@ CREATE TABLE `configs` (
   `title` varchar(64) NOT NULL DEFAULT 'PHP eStore',
   `description` varchar(256) NOT NULL DEFAULT 'Здесь вы можете купить готовый сайт для заработка или других целей. Магазин скриптов PHP eStore предоставляет огромный выбор качественных сайтов.',
   `keywords` varchar(1024) NOT NULL DEFAULT 'создание сайта, создать сайт самому, скрипт, скачать скрипты бесплатно, скачать скрипты, скрипты для сайта, скрипты сайтов, движки сайтов, Интернет-магазин, skript, opcash, денежные кейсы, кейсы с деньгами, скрипты буксов, буксы, Хайпы, экономический игры, азартные игры, скрипт интернет магазина, магазин аккаунтов, скрипты рулеток, cosmocard, jetcash, spinmoney, bangcash, armycash, luxacesh, cash, рулетки cs:go, скрипт cs:go рулетки, заработок в сети, заработок в интернете, софт для веб-мастера, взлом рулетки с денежными кейсы, взлом opcash, создание сайта под заказ, создать сайт, заказать сайт, купить сайт, купить opcash, как установить сайт, установка скрипты, как установить скрипт, Купить рулетку, скрипт кейсов, купить web скрипт, купить сайт, рулетка варфейс, рулетка warface, заказать рулетку, купить недорого web скрипт, купить nvuti, скрипт nvuti,купить веб скрипт,магазин скриптов, купить скрипт рулетки,магазин скриптов рулеток,купить рулетку сайт, nvuti',
-  `version` varchar(12) NOT NULL DEFAULT '1.4',
-  `date` varchar(64) NOT NULL DEFAULT '2022-02-09 02:24:25'
+  `version` varchar(12) NOT NULL DEFAULT '1.5',
+  `language` varchar(32) NOT NULL DEFAULT 'ru_RU',
+  `date` varchar(64) NOT NULL DEFAULT '2022-02-21 17:55:56'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `configs` (`id`, `template`, `cache`, `title`, `description`, `keywords`, `version`, `date`) VALUES
-(1, :template, 1, :title, :description, :keywords, '1.4', '2022-02-09 02:24:25');
+(1, :template, 1, :title, :description, :keywords, '1.5', '2022-02-21 17:55:56');
 
 CREATE TABLE `configs__kassa` (
   `id` int(11) NOT NULL,
@@ -39,7 +40,8 @@ CREATE TABLE `configs__kassa` (
 
 INSERT INTO `configs__kassa` (`id`, `name`, `code_name`, `password1`, `password2`, `password3`, `enable`, `date`) VALUES
 (1, 'Qiwi Wallet', 'qiwi', '', 'none', 'none', 0, '2021-12-15 18:46:00'),
-(2, 'FreeKassa', 'freekassa', '', '', '', 0, '2022-02-05 18:46:00');
+(2, 'FreeKassa', 'freekassa', '', '', '', 0, '2022-02-05 18:46:00'),
+(3, 'Lava', 'lava', '', '', '', 0, '2022-02-21 17:56:34');
 
 CREATE TABLE `logs__pays` (
   `id` int(11) NOT NULL,

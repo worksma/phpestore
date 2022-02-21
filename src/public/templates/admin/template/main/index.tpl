@@ -2,7 +2,7 @@
   <div class="col-md-6 col-xl-3">
     <div class="card stat-widget">
     <div class="card-body">
-      <h5 class="card-title">Продажи</h5>
+      <h5 class="card-title">~{other:sales}</h5>
       <h3 class="text-center">{sells}</h3>
     </div>
     </div>
@@ -11,7 +11,7 @@
   <div class="col-md-6 col-xl-3">
     <div class="card stat-widget">
     <div class="card-body">
-      <h5 class="card-title">Прибыль</h5>
+      <h5 class="card-title">~{other:income}</h5>
       <h3 class="text-center">{income} &#8381;</h3>
     </div>
     </div>
@@ -20,8 +20,8 @@
   <div class="col-md-6 col-xl-3">
     <div class="card stat-widget">
     <div class="card-body">
-      <h5 class="card-title">Товары</h5>
-      <h3 class="text-center">{products} ед.</h3>
+      <h5 class="card-title">~{other:products}</h5>
+      <h3 class="text-center">{products}</h3>
     </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
   <div class="col-md-6 col-xl-3">
     <div class="card stat-widget">
     <div class="card-body">
-      <h5 class="card-title">Пользователи</h5>
+      <h5 class="card-title">~{other:users}</h5>
       <h3 class="text-center">{users}</h3>
     </div>
     </div>
@@ -42,30 +42,30 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="card-body">
-            <h5 class="card-title">Основные настройки</h5>
+            <h5 class="card-title">~{admin:main_options_title}</h5>
 
-            <label for="title" class="form-label">Название магазина</label>
+            <label for="title" class="form-label">~{admin:main_options_name}</label>
             <div class="input-group mb-3">
-              <button class="btn btn-outline-secondary" type="button" onclick="save('title', $('#title').val());">Изменить</button>
+              <button class="btn btn-outline-secondary" type="button" onclick="save('title', $('#title').val());">~{other:edit}</button>
               <input id="title" type="text" class="form-control" placeholder="Придумайте название..." value="{pre_title}">
             </div>
 
-            <label for="description" class="form-label">Описание магазина</label>
+            <label for="description" class="form-label">~{admin:main_options_description}</label>
             <div class="input-group mb-3">
-              <button class="btn btn-outline-secondary" type="button" onclick="save('description', $('#description').val());">Изменить</button>
+              <button class="btn btn-outline-secondary" type="button" onclick="save('description', $('#description').val());">~{other:edit}</button>
               <input id="description" type="text" class="form-control" placeholder="Расскажите о своём магазине..." value="{pre_description}">
             </div>
 
-            <label for="keywords" class="form-label">Теги магазина</label>
+            <label for="keywords" class="form-label">~{admin:main_options_tags}</label>
             <div class="input-group mb-3">
-              <button class="btn btn-outline-secondary" type="button" onclick="save('keywords', $('#keywords').val());">Изменить</button>
+              <button class="btn btn-outline-secondary" type="button" onclick="save('keywords', $('#keywords').val());">~{other:edit}</button>
               <input id="keywords" type="text" class="form-control" placeholder="Теги магазина..." value="{pre_keywords}">
             </div>
 
-            <label for="template" class="form-label">Стиль сайта</label>
+            <label for="template" class="form-label">~{admin:main_options_template}</label>
             <div class="input-group mb-3">
                 <button class="btn btn-outline-secondary" type="button" onclick="save('template', $('#template option:selected').text());">
-                  Изменить
+                  ~{other:edit}
                 </button>
               <select class="form-select" id="template">
                 <?=Admin::templates();?>
@@ -76,34 +76,34 @@
 
         <div class="col-lg-6">
           <div class="card-body">
-            <h5 class="card-title">Приложение Вконтакте</h5>
-            <label for="apps_vk_id" class="form-label">ID приложения</label>
+            <h5 class="card-title">~{admin:main_options_vk_title}</h5>
+            <label for="apps_vk_id" class="form-label">~{admin:main_options_vk_id}</label>
             <div class="input-group mb-3">
               <button class="btn btn-outline-secondary" type="button" onclick="save('apps_vk_id', $('#apps_vk_id').val());">
-                Изменить
+                ~{other:edit}
               </button>
-              <input id="apps_vk_id" type="text" class="form-control" placeholder="ID приложения" value="{apps_vk_id}">
+              <input id="apps_vk_id" type="text" class="form-control" placeholder="~{admin:main_options_vk_id}" value="{apps_vk_id}">
             </div>
 
-            <label for="apps_vk_secret" class="form-label">Защищённый ключ</label>
+            <label for="apps_vk_secret" class="form-label">~{admin:main_options_vk_key}</label>
             <div class="input-group mb-3">
               <button class="btn btn-outline-secondary" type="button" onclick="save('apps_vk_secret', $('#apps_vk_secret').val());">
-                Изменить
+                ~{other:edit}
               </button>
-              <input id="apps_vk_secret" type="text" class="form-control" placeholder="Защищённый ключ" value="{apps_vk_secret}">
+              <input id="apps_vk_secret" type="text" class="form-control" placeholder="~{admin:main_options_vk_key}" value="{apps_vk_secret}">
             </div>
 
-            <label for="apps_vk_service" class="form-label">Сервисный ключ доступа</label>
+            <label for="apps_vk_service" class="form-label">~{admin:main_options_vk_service}</label>
             <div class="input-group mb-3">
               <button class="btn btn-outline-secondary" type="button" onclick="save('apps_vk_service', $('#apps_vk_service').val());">
-                Изменить
+                ~{other:edit}
               </button>
-              <input id="apps_vk_service" type="text" class="form-control" placeholder="Сервисный ключ доступа" value="{apps_vk_service}">
+              <input id="apps_vk_service" type="text" class="form-control" placeholder="~{admin:main_options_vk_service}" value="{apps_vk_service}">
             </div>
 
-			<button type="submit" class="btn btn-info w-100 mb-2" onclick="update_cache();">Сбросить кэш</button>
-            <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_reviews();">Очистить отзывы</button>
-            <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_pays();">Очистить логи пополнений</button>
+			<button type="submit" class="btn btn-info w-100 mb-2" onclick="update_cache();">~{admin:main_options_cache}</button>
+            <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_reviews();">~{admin:main_options_reviews}</button>
+            <button type="submit" class="btn btn-info w-100 mb-2" onclick="truncate_pays();">~{admin:main_options_pays}</button>
           </div>
         </div>
       </div>

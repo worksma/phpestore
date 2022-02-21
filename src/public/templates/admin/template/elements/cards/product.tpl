@@ -14,7 +14,7 @@
         </div>
 
         <div class="collapse" id="collapse_{id}">
-          <label for="name{id}" class="form-label mb-0">Название</label>
+          <label for="name{id}" class="form-label mb-0">~{other:names}</label>
           <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button" onclick="save_product('name', '{id}', $('#name{id}').val());">
               <i class="far fa-save"></i>
@@ -23,7 +23,7 @@
             <input id="name{id}" type="text" class="form-control" value="{name}">
           </div>
 
-          <label for="description{id}" class="form-label mb-0">Описание</label>
+          <label for="description{id}" class="form-label mb-0">~{other:description}</label>
           <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button" onclick="save_product('description', '{id}', $('#description{id}').val());">
               <i class="far fa-save"></i>
@@ -32,7 +32,7 @@
             <textarea id="description{id}" class="form-control">{description}</textarea>
           </div>
 		  
-		  <label for="category{id}" class="form-label mb-0">Категория</label>
+		  <label for="category{id}" class="form-label mb-0">~{other:category}</label>
 		  <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button" onclick="save_product('category', '{id}', $('#category{id}').val());">
               <i class="far fa-save"></i>
@@ -42,7 +42,7 @@
 		  </div>
 		  
 
-          <label for="price{id}" class="form-label mb-0">Цена</label>
+          <label for="price{id}" class="form-label mb-0">~{other:price}</label>
           <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button" onclick="save_product('price', '{id}', $('#price{id}').val());">
               <i class="far fa-save"></i>
@@ -51,7 +51,7 @@
             <input id="price{id}" type="text" class="form-control" value="{price}">
           </div>
 
-          <label for="file{id}" class="form-label mb-0">Документ</label>
+          <label for="file{id}" class="form-label mb-0">~{other:file}</label>
           <form class="input-group mb-3" id="form_replace_file">
             <button class="btn btn-outline-secondary">
               <i class="far fa-save"></i>

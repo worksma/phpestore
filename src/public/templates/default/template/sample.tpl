@@ -39,17 +39,17 @@
 					<div class="col-lg-1 d-none d-lg-block">
 						<div class="card left-menu">
 							<ul class="ui-mini-panel">
-								<a href="/" data-bs-toggle="tooltip" data-bs-placement="right" title="Главная страница"><i class="fas fa-home"></i></a>
+								<a href="/" data-bs-toggle="tooltip" data-bs-placement="right" title="~{mini_menu:main}"><i class="fas fa-home"></i></a>
 								<?if(isset($_SESSION['id'])):?>
-								<a href="/wallet" data-bs-toggle="tooltip" data-bs-placement="right" title="Кошелёк"><i class="fas fa-wallet"></i></a>
-								<a href="/purchases" data-bs-toggle="tooltip" data-bs-placement="right" title="Покупки"><i class="fas fa-shopping-cart"></i></a>
+								<a href="/wallet" data-bs-toggle="tooltip" data-bs-placement="right" title="~{mini_menu:wallet}"><i class="fas fa-wallet"></i></a>
+								<a href="/purchases" data-bs-toggle="tooltip" data-bs-placement="right" title="~{mini_menu:purchases}"><i class="fas fa-shopping-cart"></i></a>
 								<?else:?>
-								<a href="/login" data-bs-toggle="tooltip" data-bs-placement="right" title="Войти на сайт"><i class="fas fa-user-lock"></i></a>
+								<a href="/login" data-bs-toggle="tooltip" data-bs-placement="right" title="~{other:login}"><i class="fas fa-user-lock"></i></a>
 								<?endif;?>
-								<a target="_blank" href="https://vk.com/worksmaru" data-bs-toggle="tooltip" data-bs-placement="right" title="Мы вконтакте"><i class="fab fa-vk"></i></a>
-								<a target="_blank" href="https://worksma.ru" data-bs-toggle="tooltip" data-bs-placement="right" title="Торговая площадка"><i class="fab fa-connectdevelop"></i></a>
+								<a target="_blank" href="https://vk.com/worksmaru" data-bs-toggle="tooltip" data-bs-placement="right" title="~{mini_menu:vk}"><i class="fab fa-vk"></i></a>
+								<a target="_blank" href="https://worksma.ru" data-bs-toggle="tooltip" data-bs-placement="right" title="~{mini_menu:worksma}"><i class="fab fa-connectdevelop"></i></a>
 								<?if(isset($_SESSION['id'])):?>
-								<a class="text-warning" href="/logout" data-bs-toggle="tooltip" data-bs-placement="right" title="Выйти"><i class="fas fa-sign-out-alt"></i></a>
+								<a class="text-warning" href="/logout" data-bs-toggle="tooltip" data-bs-placement="right" title="~{other:logout}"><i class="fas fa-sign-out-alt"></i></a>
 								<?endif;?>
 							</ul>
 						</div>
@@ -61,10 +61,7 @@
 			</div>
 		</main>
 		
-		<footer class="mt-4 p-4">
-			Копирайт &copy; 2022. Все права сохранены.
-			Шаблон OSIRIS by <a class="dautov" href="https://vk.com/ieatbread" target="_blank">by Ruslan Dautov</a>.
-		</footer>
+		<footer class="mt-4 p-4">~{other:copyright}</footer>
 		
 		<!--[ Конечная подгрузка JS ]-->
 		<script src="{assets}js/bootstrap.js?v={cache}"></script>

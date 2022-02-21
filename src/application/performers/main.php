@@ -4,14 +4,14 @@
 	if(empty($_POST['php_action'])):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Прямой вызов скрипта'
+			'message'		=> lang()->get('errors', 'exploit')
 			]);
 	endif;
 
 	if($_SESSION['token'] != $_POST['token']):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Неверный токен'
+			'message'		=> lang()->get('errors', 'token')
 		]);
 	endif;
 
@@ -25,7 +25,7 @@
 		if(empty($login) || empty($password)):
 			result([
 				'alert'		=> 'warning',
-				'message'	=> 'Заполните все данные!'
+				'message'	=> lang()->get('errors', 'empty_data')
 			]);
 		endif;
 
@@ -41,7 +41,7 @@
 		if(empty($login) || empty($password) || empty($name) || empty($surname)):
 			result([
 				'alert'		=> 'warning',
-				'message'	=> 'Заполните все данные!'
+				'message'	=> lang()->get('errors', 'empty_data')
 			]);
 		endif;
 
@@ -66,7 +66,7 @@
 		$sth = pdo()->query("SELECT * FROM `reviews` WHERE 1 ORDER BY `id` DESC");
 		
 		if(!$sth->rowCount()):
-			result("<center>Отзывов нет.</center>");
+			result("<center>" . lang()->get('noty', 'no_reviews') . "</center>");
 		endif;
 
 		tpl()->e_clear();
@@ -90,7 +90,7 @@
 	if(empty($_SESSION['id'])):
 		result([
 			'alert'			=> 'error',
-			'message'		=> 'Сначала авторизуйтесь!'
+			'message'		=> lang()->get('errors', 'not_auth')
 		]);
 	endif;
 
@@ -101,8 +101,8 @@
 
 	if(isset($_POST['delete_purchases'])):
 		$id = clean($_POST['id'], "int");
-		pdo()->exec("DELETE FROM `product__purchases` WHERE `id`='$id' and `id_user`='{$_SESSION['id']}' LIMIT 1");
-
+		pdo()->exec("UPDATE `product__purchases` SET `id_user`='-1' WHERE (`id`='$id' and `id_user`='" . $_SESSION['id'] . "') LIMIT 1");
+		
 		result((new Product)->purchases($_SESSION['id']));
 	endif;
 
@@ -112,7 +112,7 @@
 		if(empty($message)):
 			result([
 				'alert'		=> 'warning',
-				'message'	=> 'Вы ничего не написали!'
+				'message'	=> lang()->get('errors', 'no_text')
 			]);
 		endif;
 
@@ -126,7 +126,7 @@
 
 		result([
 			'alert' => 'success',
-			'message' => 'Спасибо за Ваш отзыв!'
+			'message' => lang()->get('noty', 'end_reviews')
 		]);
 	endif;
 
@@ -152,7 +152,7 @@
 		if(!$sth->rowCount()):
 			result([
 				'alert'			=> 'error',
-				'message'		=> 'У Вас нет этого товара!'
+				'message'		=> lang()->get('errors', 'no_product')
 			]);
 		endif;
 
@@ -167,7 +167,7 @@
 
 		result([
 			'alert'			=> 'success',
-			'message'		=> 'Генерация прошла успешно!',
+			'message'		=> lang()->get('noty', 'success'),
 
 			'file'			=> 'https://' . $_SERVER['SERVER_NAME'] . '/download/' . $hash,
 			'name'			=> $filename

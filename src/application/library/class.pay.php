@@ -21,19 +21,14 @@
 				break;
 
 				case "qiwi":
-					$kassa = $this->conf($code);
 					$q = new Qiwi($kassa->password1);
-
 					$udata = usr()->get($_SESSION['id']);
-					$comment = "Пополнение профиля ";
-					$comment .= $udata->login;
-					$comment .= " на сайте " . $_SERVER['SERVER_NAME'];
 
 					$result = $q->createBill(
 						$q->generateId(), [
 							'amount' => $price * 1.00,
 							'currency' => 'RUB',
-							'comment' => $comment,
+							'comment' => lang()->get('purse', 'sending', ['_LOGIN_' => $udata->login]),
 							'expirationDateTime' => $q->getLifetimeByDay(1),
 							'email' => 'webmaster@' . $_SERVER['SERVER_NAME'],
 							'account' => $_SESSION['id'],
@@ -43,7 +38,11 @@
 
 					$url = $result['payUrl'];
 				break;
-
+				
+				case "lava":
+					$url = Lava::g2p($price);
+				break;
+				
 				default:
 					return false;
 				break;
@@ -93,7 +92,7 @@
 			$sth = pdo()->query("SELECT * FROM `users__purse` WHERE `id_user`='$uid' ORDER BY `id` DESC");
 
 			if(!$sth->rowCount()):
-				return "<tr><td colspan=\"5\" class=\"text-center\">Нет операций.</td></tr>";
+				return "<tr><td colspan=\"5\" class=\"text-center\">" . lang()->get('noty', 'no_operation') . "</td></tr>";
 			endif;
 
 			tpl()->e_clear();
